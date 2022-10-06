@@ -50,11 +50,15 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    books: () => books,
+    books: () => {
+      console.log('BOOKS')
+      return books
+    },
   },
 
   Mutation: {
     piMeasurements: (_, args) => {
+      console.log("args", args)
       return {
         code: 200,
         success: true,
