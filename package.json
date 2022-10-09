@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./server.js localhost 4000"
+    "start": "nodemon ./src/index.js localhost 4000"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^3.10.2",
     "apollo-server-core": "^3.10.2",
-    "graphql": "^16.6.0"
+    "better-sqlite3": "^7.6.2",
+    "graphql": "^16.6.0",
+    "knex": "^2.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20",
