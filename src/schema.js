@@ -14,7 +14,7 @@ module.exports = gql`
       "Sensor humidity"
       humidity: Float
       "Measurement date"
-      measurementDate: String
+      measurementDate: Float
     ): piSaveMeasurement
   }
   type piMeasurement {
@@ -25,7 +25,7 @@ module.exports = gql`
     "Sensor humidity"
     humidity: Float
     "Measurement date"
-    measurementDate: String
+    measurementDate: Float
   }
 
   type piSaveMeasurement {
@@ -42,6 +42,6 @@ module.exports = gql`
     "Sensor humidity"
     humidity: Float
     "Measurement date"
-    measurementDate: String
+    measurementDate: Float
   }
 `;

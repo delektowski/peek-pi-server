@@ -18,6 +18,7 @@ async function saveMeasurements(
 module.exports = {
   Query: {
     allMeasurements: async () => {
+      console.log(`Measurements has been queried on: ${new Date().toISOString()}`)
       return await db.getAllSensorsData();
     },
   },
@@ -34,7 +35,7 @@ module.exports = {
         args.pressure,
         args.measurementDate
       );
-
+      console.log(`Measurement has been added on: ${args.measurementDate}`)
       return {
         code: 200,
         success: true,
