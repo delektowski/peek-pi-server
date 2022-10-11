@@ -39,7 +39,7 @@ module.exports = {
       return {
         code: 200,
         success: true,
-        message: `Measurement has been added!`,
+        message: `Measurement has been added on: ${args.measurementDate}`,
       };
     },
   },
