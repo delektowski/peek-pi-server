@@ -3,6 +3,7 @@ const { gql } = require("apollo-server");
 module.exports = gql`
   type Query {
     allMeasurements: [piMeasurement]
+    dateRangeMeasurements: [piMeasurement]
   }
   type Mutation {
     "Saves measurement to DB"
@@ -25,7 +26,7 @@ module.exports = gql`
     "Sensor humidity"
     humidity: Float
     "Measurement date"
-    measurementDate: Float
+    measurementDate: String
   }
 
   type piSaveMeasurement {

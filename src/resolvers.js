@@ -21,6 +21,9 @@ module.exports = {
       console.log(`Measurements has been queried on: ${new Date().toISOString()}`)
       return await db.getAllSensorsData();
     },
+    dateRangeMeasurements: async () => {
+       return await db.getDateRangeMeasurements()
+    }
   },
 
   Mutation: {
