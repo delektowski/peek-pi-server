@@ -1,5 +1,5 @@
 const knex = require("./knex");
-const tableName = "measurements2022";
+const tableName = "measurements";
 
 function createSensorsData(sensorsData) {
   return knex(tableName).insert(sensorsData);
