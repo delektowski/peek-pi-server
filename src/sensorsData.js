@@ -9,8 +9,8 @@ function getAllSensorsData() {
   return knex(tableName).select("*");
 }
 
-function getDateRangeMeasurements() {
-    return  knex(tableName).whereBetween('measurementDate',['2021-09-10','2021-09-11'])
+function getDateRangeMeasurements({ start, end }) {
+  return knex(tableName).whereBetween("measurementDate", [start, end]);
 }
 
 module.exports = {
