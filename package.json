@@ -4,15 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./src/index.js localhost 4000"
+    "start": "SERVER_PORT=4000 nodemon src/index.mjs"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apollo-server": "^3.10.2",
-    "apollo-server-core": "^3.10.2",
+    "@apollo/server": "^4.0.0",
     "better-sqlite3": "^7.6.2",
-    "dayjs": "^1.11.5",
     "dotenv": "^16.0.3",
     "graphql": "^16.6.0",
     "knex": "^2.3.0"
