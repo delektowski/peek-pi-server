@@ -1,15 +1,20 @@
 import {connectKnex} from "./knex.mjs";
 
-const tableName = "measurements";
+const tableMeasurements = "measurements";
+const tablePhoto = "photos"
 
 export function createSensorsData(sensorsData) {
-    return connectKnex(tableName).insert(sensorsData);
+    return connectKnex(tableMeasurements).insert(sensorsData);
+}
+
+export function createPhotoData(photoData) {
+    return connectKnex(tablePhoto).insert(photoData);
 }
 
 export function getAllSensorsData() {
-    return connectKnex(tableName).select("*");
+    return connectKnex(tableMeasurements).select("*");
 }
 
 export function getDateRangeMeasurements({start, end}) {
-    return connectKnex(tableName).whereBetween("measurementDate", [start, end]);
+    return connectKnex(tableMeasurements).whereBetween("measurementDate", [start, end]);
 }
