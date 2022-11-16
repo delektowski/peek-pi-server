@@ -8,11 +8,16 @@ import bodyParser from 'body-parser';
 import http from 'http';
 import https from 'https';
 import fs from 'fs';
+import * as path from 'path'
+import { fileURLToPath } from 'url';
 import * as dotenv from 'dotenv'
 dotenv.config()
 
-const config =  { ssl: false, port: process.env.SERVER_PORT, hostname: process.env.SERVER_URL }
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const dir = path.join(__dirname, 'pics');
 
+const config =  { ssl: false, port: process.env.SERVER_PORT, hostname: process.env.SERVER_URL }
 const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -22,6 +27,7 @@ await server.start();
 const app = express();
 
 app.use('', cors(), bodyParser.json(), expressMiddleware(server));
+app.use(express.static(dir));
 
 let httpServer;
 
