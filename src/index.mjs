@@ -21,7 +21,7 @@ await server.start();
 
 const app = express();
 
-app.use('/graphql', cors(), bodyParser.json(), expressMiddleware(server));
+app.use('', cors(), bodyParser.json(), expressMiddleware(server));
 
 let httpServer;
 
