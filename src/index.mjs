@@ -1,19 +1,44 @@
-import {typeDefs} from "./schema.mjs";
 import {ApolloServer} from '@apollo/server';
-import {startStandaloneServer} from '@apollo/server/standalone';
+import { expressMiddleware } from '@apollo/server/express4';
+import express from 'express';
+import {typeDefs} from "./schema.mjs";
 import {resolvers} from "./resolvers.mjs";
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import http from 'http';
+import https from 'https';
+import fs from 'fs';
 import * as dotenv from 'dotenv'
 dotenv.config()
+
+const config =  { ssl: false, port: process.env.SERVER_PORT, hostname: process.env.SERVER_URL }
 
 const server = new ApolloServer({
     typeDefs,
     resolvers,
 });
+await server.start();
 
-let { url } = await startStandaloneServer(server, {
-	listen: { port: process.env.SERVER_PORT},
-});
+const app = express();
 
-url=process.env.SERVER_URL
+app.use('/graphql', cors(), bodyParser.json(), expressMiddleware(server));
 
-console.log(`🚀  Server ready at: ${url}`);
+let httpServer;
+
+if (config.ssl) {
+    httpServer = https.createServer(
+        {
+            key: fs.readFileSync(`./ssl/server.key`),
+            cert: fs.readFileSync(`./ssl/server.crt`),
+        },
+
+        app,
+    );
+} else {
+    httpServer = http.createServer(app);
+}
+
+await new Promise((resolve) => httpServer.listen({ port: config.port }, resolve));
+
+console.log('🚀 Server ready at', `http${config.ssl ? 's' : ''}://${config.hostname}:${config.port}/graphql`);
+
