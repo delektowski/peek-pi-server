@@ -46,5 +46,5 @@ if (config.ssl) {
 
 await new Promise((resolve) => httpServer.listen({ port: config.port }, resolve));
 
-console.log('🚀 Server ready at', `http${config.ssl ? 's' : ''}://${config.hostname}:${config.port}/graphql`);
+console.log('🚀 Server ready at', `http${config.ssl ? 's' : ''}://${config.hostname}:${config.port}`);
 

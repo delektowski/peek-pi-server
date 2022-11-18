@@ -1,5 +1,11 @@
 import { setDateRange } from "./helpers.mjs";
-import { createPhotoData, createSensorsData, getAllSensorsData, getDateRangeMeasurements } from "./sensorsData.mjs";
+import {
+  createPhotoData,
+  createSensorsData,
+  getAllSensorsData,
+  getDateRangeMeasurements,
+  getLastPhoto
+} from "./sensorsData.mjs";
 
 async function saveMeasurements(temperature, humidity, pressure, measurementDate) {
   const sensorData = {
@@ -23,6 +29,8 @@ export const resolvers = {
       return getAllSensorsData();
     }, dateRangeMeasurements: async (_, args) => {
       return getDateRangeMeasurements(setDateRange(args.start, args.end));
+    }, lastPhoto: async () => {
+      return getLastPhoto();
     }
   },
 

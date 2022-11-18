@@ -7,6 +7,7 @@ type Query {
         "End date"
         end: String
     ): [piMeasurement]
+    lastPhoto: [piLastPhoto] 
 }
 type Mutation {
     "Saves measurement to DB"
@@ -28,6 +29,7 @@ type Mutation {
         date: Float
     ): piSavePhotoData
 }
+
 type piMeasurement {
     "Sensor temperature"
     temperature: Float
@@ -67,5 +69,12 @@ type piSavePhotoData {
     title: String
     "Photo date"
     date: Float
+}
+
+type piLastPhoto {
+    "Photo title"
+    title: String
+    "Photo date"
+    date: String
 }
 `;
