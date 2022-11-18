@@ -16,7 +16,7 @@ dotenv.config()
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const dir = path.join(__dirname, 'pics');
-
+console.log("dir", dir)
 const config =  { ssl: false, port: process.env.SERVER_PORT, hostname: process.env.SERVER_URL }
 const server = new ApolloServer({
     typeDefs,
@@ -26,8 +26,8 @@ await server.start();
 
 const app = express();
 
-app.use('', cors(), bodyParser.json(), expressMiddleware(server));
 app.use(express.static(dir));
+app.use('', cors(), bodyParser.json(), expressMiddleware(server));
 
 let httpServer;
 
