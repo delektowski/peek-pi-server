@@ -7,7 +7,13 @@ type Query {
         "End date"
         end: String
     ): [piMeasurement]
-    lastPhoto: [piLastPhoto] 
+    lastPhoto: [piLastPhoto]
+    oldPhotoFromRange(
+        "Start date"
+        start: String
+        "End date"
+        end: String
+    ): [piLastPhoto]
 }
 type Mutation {
     "Saves measurement to DB"
