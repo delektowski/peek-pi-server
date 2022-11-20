@@ -26,7 +26,6 @@ export function getLastPhoto() {
 export function getOldPhotoFromRange(start, end) {
     console.log("start", start)
     console.log("end", end)
-    const from = '2022-11-15T21:19:59.169Z';
-    const to = '2022-11-15T21:42:39.169Z';
-    return connectKnex(tablePhoto).select().whereBetween('date', [from, to]).limit(1);
+
+    return connectKnex(tablePhoto).select().whereBetween('date', [start, end]).limit(1);
 }
