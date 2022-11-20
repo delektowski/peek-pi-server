@@ -33,7 +33,7 @@ export const resolvers = {
             return getLastPhoto();
         },
         oldPhotoFromRange: async (_, args) => {
-            return getOldPhotoFromRange(setDateRange(args.start, args.end));
+            return getOldPhotoFromRange(args.start, args.end);
         }
     },
 

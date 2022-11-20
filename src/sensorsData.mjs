@@ -23,7 +23,7 @@ export function getLastPhoto() {
     return connectKnex(tablePhoto).select().orderBy([{column: "id", order: "desc"}]).limit(1);
 }
 
-export function getOldPhotoFromRange({start, end}) {
+export function getOldPhotoFromRange(start, end) {
     console.log("start", start)
     console.log("end", end)
     const from = '2022-11-15T21:19:59.169Z';
