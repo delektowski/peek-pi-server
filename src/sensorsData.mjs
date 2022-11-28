@@ -1,4 +1,5 @@
 import {connectKnex} from "./knex.mjs";
+import dayjs from 'dayjs'
 
 const tableMeasurements = "measurements";
 const tablePhoto = "photos";
@@ -9,6 +10,11 @@ export function createSensorsData(sensorsData) {
 
 export function createPhotoData(photoData) {
     return connectKnex(tablePhoto).insert(photoData);
+}
+
+export function deletePhotoData(date) {
+    const formatDate = dayjs(date).format('YYYY-MM-DD')
+    return connectKnex(tablePhoto).where('title', 'like', `%${formatDate}%`).del()
 }
 
 export function getAllSensorsData() {

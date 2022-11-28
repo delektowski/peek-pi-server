@@ -1,7 +1,7 @@
 import {setDateRange} from "./helpers.mjs";
 import {
     createPhotoData,
-    createSensorsData,
+    createSensorsData, deletePhotoData,
     getAllSensorsData,
     getDateRangeMeasurements,
     getLastPhoto, getOldPhotoFromRange
@@ -20,6 +20,11 @@ async function savePhotoData(title, date) {
         date
     };
     await createPhotoData(photoData);
+}
+
+async function delPhotoData(date) {
+    console.log("date delPhoto", date)
+    await deletePhotoData(date);
 }
 
 export const resolvers = {
@@ -53,6 +58,13 @@ export const resolvers = {
             console.log(`Photo source has been saved on: ${args.date}`);
             return {
                 code: 200, success: true, message: `Photo source has been saved on: ${args.date}`
+            };
+        },
+        deletePhotoData: async (_, args) => {
+            await delPhotoData(args.date);
+            console.log(`Photo source has been deleted on: ${args.date}`);
+            return {
+                code: 200, success: true, message: `Photo source has been deleted on: ${args.date}`
             };
         }
     }
