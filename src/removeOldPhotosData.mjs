@@ -21,7 +21,7 @@ async function removeOdlPhotosFiles() {
 }
 
 export function handleRemoveOldPhotos() {
-    const oneDay = 5000;
+    const oneDay = 86400000;
     setInterval(() => {
         removeOldPhotosData()
         removeOdlPhotosFiles()
