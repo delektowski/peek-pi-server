@@ -10,7 +10,7 @@ async function removeOldPhotosData() {
     console.log("Photos data with date:", formatDate, "has been deleted.")
 }
 
-async function removeOdlPhotosFiles() {
+async function removeOldPhotosFiles() {
     exec(`rm ./pics/img-${formatDate}*`, (err, _) => {
         if (err) {
             console.error("could not execute command: ", err)
@@ -24,6 +24,6 @@ export function handleRemoveOldPhotos() {
     const oneDay = 86400000;
     setInterval(() => {
         removeOldPhotosData()
-        removeOdlPhotosFiles()
+        removeOldPhotosFiles()
     }, oneDay)
 }
