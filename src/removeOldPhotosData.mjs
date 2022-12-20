@@ -35,8 +35,8 @@ async function removeOldPhotosFiles() {
 }
 
 export function handleRemoveOldPhotos() {
-    const oneDay = 86400000;
-    setInterval(() => {
+    const oneDay = 43200000;
+	setInterval(() => {
         removeOldPhotosData()
         removeOldPhotosFiles()
     }, oneDay)

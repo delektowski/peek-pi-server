@@ -5,3 +5,4 @@ node_modules/
 measurements.db
 ssl
 pics/
+logs.log
