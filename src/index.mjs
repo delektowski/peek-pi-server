@@ -12,6 +12,7 @@ import * as path from "path";
 import { fileURLToPath } from "url";
 import * as dotenv from "dotenv";
 import { handleRemoveOldPhotos } from "./removeOldPhotosData.mjs";
+import logger from "./logger.mjs";
 
 dotenv.config();
 
@@ -51,7 +52,9 @@ await new Promise((resolve) =>
   httpServer.listen({ port: config.port }, resolve)
 );
 handleRemoveOldPhotos();
-console.log(
-  "🚀 Server ready at",
-  `http${config.ssl ? "s" : ""}://${config.hostname}:${config.port}`
+logger.log(
+  "info",
+  `Server ready at: http${config.ssl ? "s" : ""}://${config.hostname}:${
+    config.port
+  }`
 );
