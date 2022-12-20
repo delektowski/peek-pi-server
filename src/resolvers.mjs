@@ -8,6 +8,7 @@ import {
   getLastPhoto,
   getOldPhotoFromRange,
 } from "./sensorsData.mjs";
+import logger from "./logger.mjs";
 
 async function saveMeasurements(
   temperature,
@@ -67,7 +68,12 @@ export const resolvers = {
         args.pressure,
         args.measurementDate
       );
-      console.log(`Measurement has been added on: ${args.measurementDate}`);
+      logger.log(
+          "info",
+          `Measurement has been added on: ${args.measurementDate}`, {
+            function: "saveMeasurements()"
+          }
+      );
       return {
         code: 200,
         success: true,
@@ -78,6 +84,12 @@ export const resolvers = {
       args.date = new Date().toISOString();
       await savePhotoData(args.title, args.date);
       console.log(`Photo source has been saved on: ${args.date}`);
+      logger.log(
+          "info",
+          `Photo source has been saved on: ${args.date}`, {
+            function: "savePhotoData()"
+          }
+      );
       return {
         code: 200,
         success: true,
@@ -86,7 +98,12 @@ export const resolvers = {
     },
     deletePhotoData: async (_, args) => {
       await delPhotoData(args.date);
-      console.log(`Photo source has been deleted on: ${args.date}`);
+      logger.log(
+          "info",
+          `Photo source has been deleted on: ${args.date}`, {
+            function: "deletePhotoData()"
+          }
+      );
       return {
         code: 200,
         success: true,
