@@ -3,9 +3,10 @@ import dayjs from "dayjs";
 import {exec} from 'node:child_process'
 import logger from "./logger.mjs";
 
-const formatDate = dayjs().subtract(8, 'day').format('YYYY-MM-DD')
+
 
 async function removeOldPhotosData() {
+    const formatDate = dayjs().subtract(1, 'day').format('YYYY-MM-DD')
     const tablePhoto = "photos";
     await connectKnex(tablePhoto).where('title', 'like', `%${formatDate}%`).del()
     logger.log(
@@ -17,9 +18,11 @@ async function removeOldPhotosData() {
 }
 
 async function removeOldPhotosFiles() {
+    const formatDate = dayjs().subtract(1, 'day').format('YYYY-MM-DD')
     exec(`rm ./pics/img-${formatDate}*`, (err, _) => {
         if (err) {
             console.error("could not execute command: ", err)
+		logger.warn(`Format date is: ${formatDate}`);
             logger.warn("Could not execute command: ", new Error(JSON.stringify(err)));
             
             return
