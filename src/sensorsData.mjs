@@ -1,5 +1,6 @@
 import { connectKnex } from "./knex.mjs";
 import dayjs from "dayjs";
+import logger from "./logger.mjs";
 
 const tableMeasurements = "measurements";
 const tablePhoto = "photos";
@@ -42,12 +43,28 @@ export async function getOldPhotoFromRange(start, end) {
   let reqCount = 0;
 
   async function getOldImg(start, end) {
+    logger.log(
+      "info",
+      `start: ${start} reqCount: ${reqCount}`, {
+        function: "getOldImg()"
+      }
+    );
+    reqCount++
+    if(reqCount === 2000) {
+      logger.log(
+        "info",
+        `Didn't find the photo! reqCount: ${reqCount}`, {
+          function: "getOldImg()"
+        }
+      );
+      return;
+    }
     result = await connectKnex(tablePhoto)
       .select()
       .whereBetween("date", [start, end])
       .limit(1);
     if (result.length === 0) {
-      start = dayjs(start).subtract(15, reqCount < 6000 ? "second" : "minute").toISOString();
+      start = dayjs(start).subtract(15, reqCount < 1000 ? "second" : "minute").toISOString();
       return getOldImg(start, end);
     }
   }

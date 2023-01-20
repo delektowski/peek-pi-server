@@ -6,7 +6,7 @@ import logger from "./logger.mjs";
 
 
 async function removeOldPhotosData() {
-    const formatDate = dayjs().subtract(1, 'day').format('YYYY-MM-DD')
+    const formatDate = dayjs().subtract(4, 'day').format('YYYY-MM-DD')
     const tablePhoto = "photos";
     await connectKnex(tablePhoto).where('title', 'like', `%${formatDate}%`).del()
     logger.log(
@@ -18,7 +18,7 @@ async function removeOldPhotosData() {
 }
 
 async function removeOldPhotosFiles() {
-    const formatDate = dayjs().subtract(1, 'day').format('YYYY-MM-DD')
+    const formatDate = dayjs().subtract(4, 'day').format('YYYY-MM-DD')
     exec(`rm ./pics/img-${formatDate}*`, (err, _) => {
         if (err) {
             console.error("could not execute command: ", err)
