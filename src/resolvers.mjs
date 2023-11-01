@@ -14,7 +14,8 @@ async function saveMeasurements(
   temperature,
   humidity,
   pressure,
-  measurementDate
+  measurementDate,
+  measurementTable
 ) {
   const sensorData = {
     temperature,
@@ -22,7 +23,7 @@ async function saveMeasurements(
     pressure,
     measurementDate,
   };
-  await createSensorsData(sensorData);
+  await createSensorsData(sensorData, measurementTable);
 }
 
 async function savePhotoData(title, date) {
@@ -66,13 +67,40 @@ export const resolvers = {
         args.temperature,
         args.humidity,
         args.pressure,
-        args.measurementDate
+        args.measurementDate,
+          "measurements"
       );
       logger.log(
-          "info",
-          `Measurement has been added on: ${args.measurementDate}`, {
-            function: "saveMeasurements()"
-          }
+        "info",
+        `Measurement has been added on: ${args.measurementDate}`,
+        {
+          function: "saveMeasurements()",
+        }
+      );
+      return {
+        code: 200,
+        success: true,
+        message: `Measurement has been added on: ${args.measurementDate}`,
+      };
+    },
+    saveMeasurements1: async (_, args) => {
+      args.measurementDate = new Date(
+        args.measurementDate * 1000
+      ).toISOString();
+
+      await saveMeasurements(
+        args.temperature,
+        args.humidity,
+        args.pressure,
+        args.measurementDate,
+        "measurements1"
+      );
+      logger.log(
+        "info",
+        `Measurement has been added on: ${args.measurementDate}`,
+        {
+          function: "saveMeasurements()",
+        }
       );
       return {
         code: 200,
@@ -84,12 +112,9 @@ export const resolvers = {
       args.date = new Date().toISOString();
       await savePhotoData(args.title, args.date);
       console.log(`Photo source has been saved on: ${args.date}`);
-      logger.log(
-          "info",
-          `Photo source has been saved on: ${args.date}`, {
-            function: "savePhotoData()"
-          }
-      );
+      logger.log("info", `Photo source has been saved on: ${args.date}`, {
+        function: "savePhotoData()",
+      });
       return {
         code: 200,
         success: true,
@@ -98,12 +123,9 @@ export const resolvers = {
     },
     deletePhotoData: async (_, args) => {
       await delPhotoData(args.date);
-      logger.log(
-          "info",
-          `Photo source has been deleted on: ${args.date}`, {
-            function: "deletePhotoData()"
-          }
-      );
+      logger.log("info", `Photo source has been deleted on: ${args.date}`, {
+        function: "deletePhotoData()",
+      });
       return {
         code: 200,
         success: true,

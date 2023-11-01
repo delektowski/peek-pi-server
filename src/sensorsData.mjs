@@ -3,9 +3,13 @@ import dayjs from "dayjs";
 import logger from "./logger.mjs";
 
 const tableMeasurements = "measurements";
+const tableMeasurements1 = "measurements1";
 const tablePhoto = "photos";
 
-export function createSensorsData(sensorsData) {
+export function createSensorsData(sensorsData, measurementTable) {
+  if (measurementTable === "measurements1") {
+    return connectKnex(tableMeasurements1).insert(sensorsData);
+  }
   return connectKnex(tableMeasurements).insert(sensorsData);
 }
 
@@ -43,20 +47,14 @@ export async function getOldPhotoFromRange(start, end) {
   let reqCount = 0;
 
   async function getOldImg(start, end) {
-    logger.log(
-      "info",
-      `start: ${start} reqCount: ${reqCount}`, {
-        function: "getOldImg()"
-      }
-    );
-    reqCount++
-    if(reqCount === 2000) {
-      logger.log(
-        "info",
-        `Didn't find the photo! reqCount: ${reqCount}`, {
-          function: "getOldImg()"
-        }
-      );
+    logger.log("info", `start: ${start} reqCount: ${reqCount}`, {
+      function: "getOldImg()",
+    });
+    reqCount++;
+    if (reqCount === 2000) {
+      logger.log("info", `Didn't find the photo! reqCount: ${reqCount}`, {
+        function: "getOldImg()",
+      });
       return;
     }
     result = await connectKnex(tablePhoto)
@@ -64,7 +62,9 @@ export async function getOldPhotoFromRange(start, end) {
       .whereBetween("date", [start, end])
       .limit(1);
     if (result.length === 0) {
-      start = dayjs(start).subtract(15, reqCount < 1000 ? "second" : "minute").toISOString();
+      start = dayjs(start)
+        .subtract(15, reqCount < 1000 ? "second" : "minute")
+        .toISOString();
       return getOldImg(start, end);
     }
   }
