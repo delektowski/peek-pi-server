@@ -28,7 +28,13 @@ export function getAllSensorsData() {
   return connectKnex(tableMeasurements).select("*");
 }
 
-export function getDateRangeMeasurements({ start, end }) {
+export function getDateRangeMeasurements({ start, end },measurementTable) {
+  if (measurementTable === "measurements1") {
+    return connectKnex(tableMeasurements1).whereBetween("measurementDate", [
+      start,
+      end,
+    ]);
+  }
   return connectKnex(tableMeasurements).whereBetween("measurementDate", [
     start,
     end,

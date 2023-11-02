@@ -6,7 +6,10 @@ type Query {
         start: String
         "End date"
         end: String
-    ): [piMeasurement]
+        "measurementTable"
+        measurementTable: String
+    ): [piMeasurement]    
+
     lastPhoto: [piLastPhoto]
     oldPhotoFromRange(
         "Start date"

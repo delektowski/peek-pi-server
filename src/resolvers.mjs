@@ -47,7 +47,7 @@ export const resolvers = {
       return getAllSensorsData();
     },
     dateRangeMeasurements: async (_, args) => {
-      return getDateRangeMeasurements(setDateRange(args.start, args.end));
+      return getDateRangeMeasurements(setDateRange(args.start, args.end),args.measurementTable);
     },
     lastPhoto: async () => {
       return getLastPhoto();
