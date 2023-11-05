@@ -62,38 +62,13 @@ export const resolvers = {
       args.measurementDate = new Date(
         args.measurementDate * 1000
       ).toISOString();
-
+      console.log("args", args)
       await saveMeasurements(
         args.temperature,
         args.humidity,
         args.pressure,
         args.measurementDate,
-          "measurements"
-      );
-      logger.log(
-        "info",
-        `Measurement has been added on: ${args.measurementDate}`,
-        {
-          function: "saveMeasurements()",
-        }
-      );
-      return {
-        code: 200,
-        success: true,
-        message: `Measurement has been added on: ${args.measurementDate}`,
-      };
-    },
-    saveMeasurements1: async (_, args) => {
-      args.measurementDate = new Date(
-        args.measurementDate * 1000
-      ).toISOString();
-
-      await saveMeasurements(
-        args.temperature,
-        args.humidity,
-        args.pressure,
-        args.measurementDate,
-        "measurements1"
+        args.measurementTable
       );
       logger.log(
         "info",

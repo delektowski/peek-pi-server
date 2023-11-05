@@ -19,7 +19,7 @@ type Query {
     ): [piLastPhoto]
 }
 type Mutation {
-    "Saves measurement to DB and table measurements"
+    "Saves measurement to DB and table according to measurementTable arg"
     saveMeasurements(
         "Sensor temperature"
         temperature: Float
@@ -28,19 +28,11 @@ type Mutation {
         "Sensor humidity"
         humidity: Float
         "Measurement date"
-        measurementDate: Float
-    ): piSaveMeasurement     
-    "Saves measurement to DB and table measurements1"
-    saveMeasurements1(
-        "Sensor temperature"
-        temperature: Float
-        "Sensor pressure"
-        pressure: Float
-        "Sensor humidity"
-        humidity: Float
+        measurementDate: Float      
         "Measurement date"
-        measurementDate: Float
-    ): piSaveMeasurement    
+        measurementTable: String
+    ): piSaveMeasurement     
+   
     "Saves photo title to DB"
     savePhotoData(
         "Photo title"

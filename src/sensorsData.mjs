@@ -10,7 +10,11 @@ export function createSensorsData(sensorsData, measurementTable) {
   if (measurementTable === "measurements1") {
     return connectKnex(tableMeasurements1).insert(sensorsData);
   }
-  return connectKnex(tableMeasurements).insert(sensorsData);
+  if (measurementTable === "measurements") {
+    return connectKnex(tableMeasurements).insert(sensorsData);
+  }
+  throw new Error("The measurement table name was not provided or is incorrect.")
+
 }
 
 export function createPhotoData(photoData) {
