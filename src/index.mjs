@@ -1,8 +1,8 @@
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import express from "express";
-import { typeDefs } from "./schema.mjs";
-import { resolvers } from "./resolvers.mjs";
+import { typeDefs } from "./schema/schema.mjs";
+import { resolvers } from "./resolvers/resolvers.mjs";
 import cors from "cors";
 import bodyParser from "body-parser";
 import http from "http";
@@ -11,8 +11,9 @@ import fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";
 import * as dotenv from "dotenv";
-import { handleRemoveOldPhotos } from "./removeOldPhotosData.mjs";
-import logger from "./logger.mjs";
+import { handleRemoveOldPhotos } from "./lib/removeOldPhotosData.mjs";
+import logger from "./logs/logger.mjs";
+import {handleTablesCreation} from "./db/handleTableCreation.mjs";
 
 dotenv.config();
 
@@ -47,7 +48,7 @@ if (config.ssl) {
 } else {
   httpServer = http.createServer(app);
 }
-
+await handleTablesCreation()
 await new Promise((resolve) =>
   httpServer.listen({ port: config.port }, resolve)
 );

@@ -1,6 +1,6 @@
-import { connectKnex } from "./knex.mjs";
+import { connectKnex } from "../db/knex.mjs";
 import dayjs from "dayjs";
-import logger from "./logger.mjs";
+import logger from "../logs/logger.mjs";
 
 const tableMeasurements = "measurements";
 const tableMeasurements1 = "measurements1";

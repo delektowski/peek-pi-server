@@ -31,7 +31,13 @@ type Mutation {
         measurementDate: Float      
         "Measurement date"
         measurementTable: String
-    ): piSaveMeasurement     
+    ): piSaveMeasurement      
+    
+    "Saves external temperature to DB"
+    saveExternalTemp(
+        "Sensor temperature"
+        temperature: Float
+    ): piSaveExternalTemp     
    
     "Saves photo title to DB"
     savePhotoData(
@@ -73,6 +79,17 @@ type piSaveMeasurement {
     humidity: Float
     "Measurement date"
     measurementDate: Float
+}
+
+type piSaveExternalTemp {
+    "Similar to HTTP status code, represents the status of the mutation"
+    code: Int!
+    "Indicates whether the mutation was successful"
+    success: Boolean!
+    "Human-readable message for the UI"
+    message: String!
+    "Sensor temperature"
+    temperature: Float
 }
 
 type piSavePhotoData {

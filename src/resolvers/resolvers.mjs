@@ -1,4 +1,4 @@
-import { setDateRange } from "./helpers.mjs";
+import { setDateRange } from "../lib/helpers.mjs";
 import {
   createPhotoData,
   createSensorsData,
@@ -8,7 +8,7 @@ import {
   getLastPhoto,
   getOldPhotoFromRange,
 } from "./sensorsData.mjs";
-import logger from "./logger.mjs";
+import logger from "../logs/logger.mjs";
 
 async function saveMeasurements(
   temperature,
@@ -107,5 +107,23 @@ export const resolvers = {
         message: `Photo source has been deleted on: ${args.date}`,
       };
     },
+    saveExternalTemp: async (_, args) => {
+      await saveMeasurements(
+          args.temperature,
+          args.humidity,
+          args.pressure,
+          args.measurementDate,
+          args.measurementTable
+      );
+      logger.log("info", `Koza on: ${args.date}`, {
+        function: "deletePhotoData()",
+      });
+      return {
+        code: 200,
+        success: true,
+        message: `Photo source has been deleted on: ${args.date}`,
+      };
+    },
+
   },
 };

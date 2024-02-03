@@ -4,7 +4,7 @@ const {knex} = pkg;
 export const connectKnex = knex({
     client: "better-sqlite3",
     connection: {
-        filename: "./measurements.db",
+        filename: "./db/measurements.db",
     },
     useNullAsDefault: true
 });
