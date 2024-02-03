@@ -1,5 +1,6 @@
 import { setDateRange } from "../lib/helpers.mjs";
 import {
+  createExternalTempData,
   createPhotoData,
   createSensorsData,
   deletePhotoData,
@@ -25,6 +26,14 @@ async function saveMeasurements(
   };
   await createSensorsData(sensorData, measurementTable);
 }
+                                                                             
+async function saveExternalTemp(temperature, measurementDate) {
+  const externalTempData = {
+    temperature,
+    measurementDate,
+  };
+  await createExternalTempData(externalTempData);
+}
 
 async function savePhotoData(title, date) {
   const photoData = {
@@ -47,7 +56,10 @@ export const resolvers = {
       return getAllSensorsData();
     },
     dateRangeMeasurements: async (_, args) => {
-      return getDateRangeMeasurements(setDateRange(args.start, args.end),args.measurementTable);
+      return getDateRangeMeasurements(
+        setDateRange(args.start, args.end),
+        args.measurementTable
+      );
     },
     lastPhoto: async () => {
       return getLastPhoto();
@@ -62,7 +74,6 @@ export const resolvers = {
       args.measurementDate = new Date(
         args.measurementDate * 1000
       ).toISOString();
-      console.log("args", args)
       await saveMeasurements(
         args.temperature,
         args.humidity,
@@ -108,22 +119,20 @@ export const resolvers = {
       };
     },
     saveExternalTemp: async (_, args) => {
-      await saveMeasurements(
-          args.temperature,
-          args.humidity,
-          args.pressure,
-          args.measurementDate,
-          args.measurementTable
+      const measurementDate = new Date().toISOString();
+      await saveExternalTemp(args.temperature, measurementDate);
+      logger.log(
+        "info",
+        `External temperature has been added on: ${measurementDate}`,
+        {
+          function: "saveExternalTemp()",
+        }
       );
-      logger.log("info", `Koza on: ${args.date}`, {
-        function: "deletePhotoData()",
-      });
       return {
         code: 200,
         success: true,
-        message: `Photo source has been deleted on: ${args.date}`,
+        message: `External temperature has been added on: ${measurementDate}`,
       };
     },
-
   },
 };

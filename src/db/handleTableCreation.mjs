@@ -40,6 +40,15 @@ export async function handleTablesCreation() {
       len: 40,
     },
   ];
+
+  const tableExternalTemp = [
+    { columnName: "temperature", columnType: "integer", len: null },
+    {
+      columnName: "measurementDate",
+      columnType: "string",
+      len: 40,
+    },
+  ];
   const tablePhotos = [
     {
       columnName: "title",
@@ -58,6 +67,10 @@ export async function handleTablesCreation() {
     {
       tableName: "measurements1",
       columnsSpec: tableMeasurements,
+    },
+    {
+      tableName: "external_temp",
+      columnsSpec: tableExternalTemp,
     },
     {
       tableName: "photos",

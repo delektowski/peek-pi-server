@@ -13,8 +13,13 @@ export function createSensorsData(sensorsData, measurementTable) {
   if (measurementTable === "measurements") {
     return connectKnex(tableMeasurements).insert(sensorsData);
   }
-  throw new Error("The measurement table name was not provided or is incorrect.")
+  throw new Error(
+    "The measurement table name was not provided or is incorrect."
+  );
+}
 
+export function createExternalTempData(externalTempData) {
+  return connectKnex("external_temp").insert(externalTempData);
 }
 
 export function createPhotoData(photoData) {
@@ -32,7 +37,7 @@ export function getAllSensorsData() {
   return connectKnex(tableMeasurements).select("*");
 }
 
-export function getDateRangeMeasurements({ start, end },measurementTable) {
+export function getDateRangeMeasurements({ start, end }, measurementTable) {
   if (measurementTable === "measurements1") {
     return connectKnex(tableMeasurements1).whereBetween("measurementDate", [
       start,
