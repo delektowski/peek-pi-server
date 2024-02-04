@@ -1,6 +1,7 @@
 export const typeDefs = `#graphql
 type Query {
     allMeasurements: [piMeasurement]
+    
     dateRangeMeasurements(
         "Start date"
         start: String
@@ -8,7 +9,14 @@ type Query {
         end: String
         "measurementTable"
         measurementTable: String
-    ): [piMeasurement]    
+    ): [piMeasurement]     
+    
+    dateRangeExternalTemp(
+        "Start date"
+        start: String
+        "End date"
+        end: String
+    ): [ExternalTempMeasurement]    
 
     lastPhoto: [piLastPhoto]
     oldPhotoFromRange(
@@ -37,6 +45,8 @@ type Mutation {
     saveExternalTemp(
         "Sensor temperature"
         temperature: Float
+        "Measurement date"
+        measurementTable: String
     ): piSaveExternalTemp     
    
     "Saves photo title to DB"
@@ -60,6 +70,13 @@ type piMeasurement {
     pressure: Float
     "Sensor humidity"
     humidity: Float
+    "Measurement date"
+    measurementDate: String
+}
+
+type ExternalTempMeasurement {
+    "Sensor temperature"
+    temperature: Float
     "Measurement date"
     measurementDate: String
 }

@@ -4,7 +4,7 @@ import {
   createPhotoData,
   createSensorsData,
   deletePhotoData,
-  getAllSensorsData,
+  getAllSensorsData, getDateRangeExternalTemp,
   getDateRangeMeasurements,
   getLastPhoto,
   getOldPhotoFromRange,
@@ -60,6 +60,10 @@ export const resolvers = {
         setDateRange(args.start, args.end),
         args.measurementTable
       );
+    },
+    dateRangeExternalTemp: async (_, args) => {
+      return getDateRangeExternalTemp(
+        setDateRange(args.start, args.end));
     },
     lastPhoto: async () => {
       return getLastPhoto();

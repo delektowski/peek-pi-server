@@ -50,6 +50,13 @@ export function getDateRangeMeasurements({ start, end }, measurementTable) {
   ]);
 }
 
+export function getDateRangeExternalTemp({ start, end }) {
+  return connectKnex("external_temp").whereBetween("measurementDate", [
+    start,
+    end,
+  ]);
+}
+
 export function getLastPhoto() {
   return connectKnex(tablePhoto)
     .select()
