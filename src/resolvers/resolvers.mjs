@@ -4,7 +4,8 @@ import {
   createPhotoData,
   createSensorsData,
   deletePhotoData,
-  getAllSensorsData, getDateRangeExternalTemp,
+  getAllSensorsData,
+  getDateRangeExternalTemp,
   getDateRangeMeasurements,
   getLastPhoto,
   getOldPhotoFromRange,
@@ -26,7 +27,7 @@ async function saveMeasurements(
   };
   await createSensorsData(sensorData, measurementTable);
 }
-                                                                             
+
 async function saveExternalTemp(temperature, measurementDate) {
   const externalTempData = {
     temperature,
@@ -62,9 +63,10 @@ export const resolvers = {
       );
     },
     dateRangeExternalTemp: async (_, args) => {
-      return getDateRangeExternalTemp(
-        setDateRange(args.start, args.end));
+      return getDateRangeExternalTemp(setDateRange(args.start, args.end));
     },
+
+
     lastPhoto: async () => {
       return getLastPhoto();
     },
