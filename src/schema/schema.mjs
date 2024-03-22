@@ -9,16 +9,32 @@ type Query {
         end: String
         "measurementTable"
         measurementTable: String
-    ): [piMeasurement]     
+    ): [piMeasurement]  
+       
+    dateRangeFloorBoilerTemps(
+        "Start date"
+        start: String
+        "End date"
+        end: String
+       
+    ): [piFloorBoilerTemps]     
     
     dateRangeExternalTemp(
         "Start date"
         start: String
         "End date"
         end: String
-    ): [ExternalTempMeasurement]    
+    ): [ExternalTempMeasurement] 
+          
+    dateRangeGasSensorData(
+        "Start date"
+        start: String
+        "End date"
+        end: String
+    ): [GasSensorData]    
 
     lastPhoto: [piLastPhoto]
+    
     oldPhotoFromRange(
         "Start date"
         start: String
@@ -36,25 +52,41 @@ type Mutation {
         "Sensor humidity"
         humidity: Float
         "Measurement date"
-        measurementDate: Float      
+        measurementDate: String      
         "Measurement date"
         measurementTable: String
-    ): piSaveMeasurement      
+    ): piSaveMeasurement   
+    
+    "Saves floor boiler temperatures to DB"
+    saveFloorBoilerTemps(
+        "Sensor temperature 1"
+        temperature1: Float  
+        "Sensor temperature 2"
+        temperature2: Float  
+        "Sensor temperature 3"
+        temperature3: Float
+    ): piSaveFloorBoilerTemps     
     
     "Saves external temperature to DB"
     saveExternalTemp(
         "Sensor temperature"
         temperature: Float
+    ): piSaveExternalTemp    
+        
+    "Saves gas sensor data to DB"
+    saveGasSensorData(
+        "Gas Sensor data"
+        gasData: Float
         "Measurement date"
         measurementTable: String
-    ): piSaveExternalTemp     
+    ): piSaveGasSensorData     
    
     "Saves photo title to DB"
     savePhotoData(
         "Photo title"
         title: String
         "Photo date"
-        date: Float
+        date: String
     ): piSavePhotoData   
     "Deletes photos title from DB"
     deletePhotoData(
@@ -74,9 +106,38 @@ type piMeasurement {
     measurementDate: String
 }
 
+type piFloorBoilerTemps {
+    "Sensor temperature1"
+    temperature1: Float
+    "Sensor temperature2"
+    temperature2: Float
+    "Sensor temperature 3"
+    temperature3: Float
+    "Measurement date"
+    measurementDate: String
+}
+
+type Measurement {
+    "Sensor temperature"
+    temperature: Float
+    "Sensor pressure"
+    pressure: Float
+    "Sensor humidity"
+    humidity: Float
+    "Measurement date"
+    measurementDate: String
+}
+
 type ExternalTempMeasurement {
     "Sensor temperature"
     temperature: Float
+    "Measurement date"
+    measurementDate: String
+}
+
+type GasSensorData {
+    "Gas sensor data"
+    gasData: Float
     "Measurement date"
     measurementDate: String
 }
@@ -95,7 +156,24 @@ type piSaveMeasurement {
     "Sensor humidity"
     humidity: Float
     "Measurement date"
-    measurementDate: Float
+    measurementDate: String
+}
+
+type piSaveFloorBoilerTemps {
+    "Similar to HTTP status code, represents the status of the mutation"
+    code: Int!
+    "Indicates whether the mutation was successful"
+    success: Boolean!
+    "Human-readable message for the UI"
+    message: String!
+    "Sensor temperature1"
+    temperature1: Float
+    "Sensor temperature2"
+    temperature2: Float
+    "Sensor temperature 3"
+    temperature3: Float
+    "Measurement date"
+    measurementDate: String
 }
 
 type piSaveExternalTemp {
@@ -109,6 +187,17 @@ type piSaveExternalTemp {
     temperature: Float
 }
 
+type piSaveGasSensorData {
+    "Similar to HTTP status code, represents the status of the mutation"
+    code: Int!
+    "Indicates whether the mutation was successful"
+    success: Boolean!
+    "Human-readable message for the UI"
+    message: String!
+    "Gas sensor data"
+    gasData: Float
+}
+
 type piSavePhotoData {
     "Similar to HTTP status code, represents the status of the mutation"
     code: Int!
@@ -119,7 +208,7 @@ type piSavePhotoData {
     "Photo title"
     title: String
     "Photo date"
-    date: Float
+    date: String
 }
 
 type piDeletePhotoData {

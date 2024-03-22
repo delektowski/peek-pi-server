@@ -18,8 +18,14 @@ export function createSensorsData(sensorsData, measurementTable) {
   );
 }
 
+export function createFloorBoilerTempsData(floorBoilerTempsData) {
+  return connectKnex("floor_boiler").insert(floorBoilerTempsData);
+}
 export function createExternalTempData(externalTempData) {
   return connectKnex("external_temp").insert(externalTempData);
+}
+export function createGasSensorData(gasSensorData) {
+  return connectKnex("gas_sensor").insert(gasSensorData);
 }
 
 export function createPhotoData(photoData) {
@@ -50,8 +56,22 @@ export function getDateRangeMeasurements({ start, end }, measurementTable) {
   ]);
 }
 
+export function getDateRangeFloorBoilerTemps({ start, end }) {
+  return connectKnex("floor_boiler").whereBetween("measurementDate", [
+    start,
+    end,
+  ]);
+}
+
 export function getDateRangeExternalTemp({ start, end }) {
   return connectKnex("external_temp").whereBetween("measurementDate", [
+    start,
+    end,
+  ]);
+}
+
+export function getDateRangeGasSensorData({ start, end }) {
+  return connectKnex("gas_sensor").whereBetween("measurementDate", [
     start,
     end,
   ]);
