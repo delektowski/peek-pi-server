@@ -77,8 +77,6 @@ type Mutation {
     saveGasSensorData(
         "Gas Sensor data"
         gasData: Float
-        "Measurement date"
-        measurementTable: String
     ): piSaveGasSensorData     
    
     "Saves photo title to DB"
@@ -138,8 +136,6 @@ type ExternalTempMeasurement {
 type GasSensorData {
     "Gas sensor data"
     gasData: Float
-    "Measurement date"
-    measurementDate: String
 }
 
 type piSaveMeasurement {
