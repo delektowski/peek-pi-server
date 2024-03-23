@@ -57,6 +57,8 @@ export function getDateRangeMeasurements({ start, end }, measurementTable) {
 }
 
 export function getDateRangeFloorBoilerTemps({ start, end }) {
+  console.log("start", start)
+  console.log("end", end)
   return connectKnex("floor_boiler").whereBetween("measurementDate", [
     start,
     end,
